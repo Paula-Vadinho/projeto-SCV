@@ -3,7 +3,6 @@
 
 int main()
 {
-    printf("Hello");
-
+    printf("vc é legal");
     return 0;
 }
