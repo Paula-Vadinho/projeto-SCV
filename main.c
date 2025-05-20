@@ -1,12 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#define Nnome 49
 
-<<<<<<< Updated upstream
-int main()
-{
-    printf("vc é legal");
-    return 0;
-=======
 struct produto
 {
     char nome [Nnome];
@@ -58,5 +53,4 @@ int main()
 
 	system("pause");
 	return 0;
->>>>>>> Stashed changes
 }
