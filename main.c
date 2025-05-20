@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#define nome 49
 
 int main()
 {
-	float produto, codp, nomp, qntp, prp;
-	float venda, codv, prodv, vt;
+    char nome [nome];
+    int codigo, Qestoque, Cvenda;
+    float Pvenda, Vtotal;
+
 	printf("\n\t\t\t Bem vindo a loja de Informatica");
 	printf("digite o produto");
 
