@@ -20,7 +20,44 @@ struct produto
 //Cadastrar o produto
 void cadastrar_produto ()
 {
+    struct produto item;
+    printf("\n\t==== CADASTRO DE PRODUTO ====\n");
 
+    //Código
+    item.codigo = n_produtos +1; //Ter a quantidade de produtos
+    printf("\tCodigo gerado: %d\n", item.codigo);
+
+    //Nome --------------------------------- PROBLEMA!!!!!!!!!
+    printf("Nome: ");
+    fflush(stdin); //Limpar
+    gets (item.nome); // Ler string
+
+
+    //Quantidade em estoque
+
+
+    //Preço de venda
+
+}
+//Registrar venda
+void registrar_venda ()
+{
+
+
+}
+//Listar produtos
+void listar_produtos ()
+{
+
+}
+//Listar vendas
+void listar_vendas ()
+{
+
+}
+//Relatório
+void relatorio ()
+{
 
 }
 
@@ -49,22 +86,27 @@ int main()
            break;
 
         case 2:
-
+            registrar_venda();
+            break;
 
         case 3:
-
+            listar_produtos();
+            break;
 
         case 4:
-
+            listar_vendas();
+            break;
 
         case 5:
+            relatorio();
+            break;
 
 
 
         }
 
 
-
+    system("cls");
 
     }while (opcao!=6); // Repetir enquanto a opção 6 for escolhidda
 
