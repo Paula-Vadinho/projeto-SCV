@@ -2,8 +2,7 @@
 #include <stdlib.h>
 
 int main(){
-	int a=2,b=1
-	int soma = a + b;
+	int produto,cod,nom,qnt,
 	return 0;
 	
 }
