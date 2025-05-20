@@ -1,10 +1,11 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include<stdlib.h>
+#include<stdio.h>
+#include<locale.h>
 
-int main(){
-	int produto, cod, nom, qnt;
+int main{
+printf(Isso);
 
-	system("pause");
-	return 0;
+
+
 
 }
