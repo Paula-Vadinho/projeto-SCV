@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define MAXnome 49
+#define MAXproduto 49
 
 //Variaveis globais:
 int n_produtos=0;
@@ -20,30 +21,40 @@ struct produto
 //Cadastrar o produto
 void cadastrar_produto ()
 {
-    struct produto item;
-    printf("\n\t==== CADASTRO DE PRODUTO ====\n");
+    if (n_produtos >=MAXproduto) //Limite na quantidade de produtos cadastrados
+    {
+        printf("\n\n\tO LIMITE DE PRODUTOS FOI ATINGIDO\n");
+        system("pause");
 
-    //Código
-    item.codigo = n_produtos +1; //Ter a quantidade de produtos
-    printf("\tCodigo gerado: %d\n", item.codigo);
+    }
 
-    //Nome --------------------------------- PROBLEMA!!!!!!!!!
-    printf("\n\tNome: ");
-    fflush(stdin); //Limpar
-    gets(item.nome); // Ler string
+    else
+    {
+
+        struct produto item;
+        printf("\n\t==== CADASTRO DE PRODUTO ====\n");
+
+        //Código
+        item.codigo = n_produtos +1; //Ter a quantidade de produtos
+        printf("\tCodigo gerado: %d\n", item.codigo);
+
+        //Nome --------------------------------- PROBLEMA!!!!!!!!!
+        printf("\n\tNome: ");
+        fflush(stdin); //Limpar
+        gets(item.nome); // Ler string
 
 
-    //Quantidade em estoque
-    printf("\n\tQuantidade em estoque: ");
-    scanf("%d", &item.Qestoque);
+        //Quantidade em estoque
+        printf("\n\tQuantidade em estoque: ");
+        scanf("%d", &item.Qestoque);
 
-    //Preço de venda
-    printf("\n\tPreco de venda: ");
-    scanf("%f", &item.Pvenda);
+        //Preço de venda
+        printf("\n\tPreco de venda: ");
+        scanf("%f", &item.Pvenda);
 
-    printf("\n\n\tCADASTRO REALIZADO\n\n");
-    system("pause");
-
+        printf("\n\n\tCADASTRO REALIZADO\n\n");
+        system("pause");
+    }
 }
 //Registrar venda
 void registrar_venda ()
