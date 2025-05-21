@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define Nnome 49
+#define MAXnome 49
 
 //Variaveis globais:
 int n_produtos=0;
@@ -9,7 +9,7 @@ int n_produtos=0;
 //Estrutura do produto
 struct produto
 {
-    char nome [Nnome];
+    char nome [MAXnome];
     int codigo;
 	int Qestoque;
     float Pvenda;
@@ -28,15 +28,21 @@ void cadastrar_produto ()
     printf("\tCodigo gerado: %d\n", item.codigo);
 
     //Nome --------------------------------- PROBLEMA!!!!!!!!!
-    printf("Nome: ");
+    printf("\n\tNome: ");
     fflush(stdin); //Limpar
-    gets (item.nome); // Ler string
+    gets(item.nome); // Ler string
 
 
     //Quantidade em estoque
-
+    printf("\n\tQuantidade em estoque: ");
+    scanf("%d", &item.Qestoque);
 
     //Preço de venda
+    printf("\n\tPreco de venda: ");
+    scanf("%f", &item.Pvenda);
+
+    printf("\n\n\tCADASTRO REALIZADO\n\n");
+    system("pause");
 
 }
 //Registrar venda
@@ -64,7 +70,7 @@ void relatorio ()
 
 int main()
 {
-    int i=0, opcao=0;
+    int opcao;
 
     do {
 
@@ -81,6 +87,7 @@ int main()
 
         switch(opcao)
         {
+
         case 1:
            cadastrar_produto();
            break;
@@ -111,6 +118,6 @@ int main()
     }while (opcao!=6); // Repetir enquanto a opção 6 for escolhidda
 
 
-	system("pause");
+
 	return 0;
 }
