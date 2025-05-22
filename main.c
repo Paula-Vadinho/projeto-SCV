@@ -62,8 +62,8 @@ void registrar_venda ()
 
 
 }
-//Listar produtos
-void listar_produtos ()
+//Listar produtos disponivveis
+void listar_produtos_disp ()
 {
 
 }
@@ -72,6 +72,13 @@ void listar_vendas ()
 {
 
 }
+
+//Listar produtos em falta
+void listar_produtos_falt ()
+{
+
+}
+
 //Relatório
 void relatorio ()
 {
@@ -90,8 +97,9 @@ int main()
         printf("\n\t2 - Registrar uma Venda");
         printf("\n\t3 - Lista de Produtos Disponiveis");
         printf("\n\t4 - Lista de Vendas");
-        printf("\n\t5 - Relatorio");
-        printf("\n\t6 - Fechar o programa");
+        printf("\n\t5 - Listar Produtos em Falta");
+        printf("\n\t6 - Relatorio");
+        printf("\n\t7 - Fechar o programa");
 
         printf("\n\n\t\tEscolha uma das opcoes: ");
         scanf("%d", &opcao);
@@ -108,7 +116,7 @@ int main()
             break;
 
         case 3:
-            listar_produtos();
+            listar_produtos_disp();
             break;
 
         case 4:
@@ -116,6 +124,11 @@ int main()
             break;
 
         case 5:
+            listar_produtos_falt();
+            break;
+
+
+        case 6:
             relatorio();
             break;
 
@@ -126,9 +139,7 @@ int main()
 
     system("cls");
 
-    }while (opcao!=6); // Repetir enquanto a opção 6 for escolhidda
-
-
+    }while (opcao!=7); // Repetir enquanto a opção 6 for escolhidda
 
 	return 0;
 }
