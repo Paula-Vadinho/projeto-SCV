@@ -1,16 +1,17 @@
+
 #include <stdio.h>
 #include <stdlib.h>
-#define MAXnome 49
+#define MAXnome 50
 #define MAXproduto 49
 
 //Variaveis globais:
-int n_produtos=0;
+int n_produtos=0; // SUBISTITUIR POR PONTEIROS!!!!!!!
 
 
 //Estrutura do produto
 struct produto
 {
-    char nome [MAXnome];
+    char nome[MAXnome];
     int codigo;
 	int Qestoque;
     float Pvenda;
@@ -31,26 +32,30 @@ void cadastrar_produto ()
     else
     {
 
-        struct produto item[n_produtos];
+        struct produto item;
         printf("\n\t==== CADASTRO DE PRODUTO ====\n");
 
-        //Código
-        item[n_produtos].codigo = n_produtos; //Ter a quantidade de produtos
-        printf("\tCodigo gerado: %d\n", item[n_produtos].codigo);
+        //Cï¿½digo
+        item.codigo = n_produtos +1; //Ter a quantidade de produtos
+        printf("\tCodigo gerado: %d\n", item.codigo);
 
         //Nome --------------------------------- PROBLEMA!!!!!!!!!
         printf("\n\tNome: ");
-        fflush(stdin); //Limpar
-        gets(item[n_produtos].nome); // Ler string
+
+        while(getchar()!='\n'); // CRIAR UMA FUNCAO PRA CHAMAR ESSE TRECO!!!!!
+
+       // fflush(stdin); //Limpar
+        fgets(item.nome,50,stdin);
+
 
 
         //Quantidade em estoque
         printf("\n\tQuantidade em estoque: ");
-        scanf("%d", &item[n_produtos].Qestoque);
+        scanf("%d", &item.Qestoque);
 
-        //Preço de venda
+        //Preco de venda
         printf("\n\tPreco de venda: ");
-        scanf("%f", &item[n_produtos].Pvenda);
+        scanf("%f", &item.Pvenda);
 
         printf("\n\n\tCADASTRO REALIZADO\n\n");
         system("pause");
@@ -62,6 +67,7 @@ void registrar_venda ()
 
 
 }
+
 //Listar produtos disponivveis
 void listar_produtos_disp ()
 {
@@ -79,7 +85,7 @@ void listar_produtos_falt ()
 
 }
 
-//Relatório
+//Relatï¿½rio
 void relatorio ()
 {
 
@@ -108,7 +114,6 @@ int main()
         {
 
         case 1:
-            n_produtos + 1; // Inteiro para registar diferentes itens
            cadastrar_produto();
            break;
 
@@ -139,8 +144,7 @@ int main()
 
 
     system("cls");
-
-    }while (opcao!=7); // Repetir enquanto a opção 6 for escolhidda
+  }while (opcao!=7); // Repetir enquanto a opï¿½ï¿½o 7 for escolhidda
 
 	return 0;
 }
