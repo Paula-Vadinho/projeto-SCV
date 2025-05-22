@@ -5,7 +5,7 @@
 #define MAXproduto 49
 
 //Variaveis globais:
-int n_produtos=0; // SUBISTITUIR POR PONTEIROS!!!!!!!
+//int n_produtos=0; // SUBISTITUIR POR PONTEIROS!!!!!!!
 
 
 //Estrutura do produto
@@ -18,10 +18,18 @@ struct produto
 	int Cvenda;
 	float Vtotal;
 };
+//Leitura de strings
+void ler_string ()
+{
+     while(getchar()!='\n');
+}
+
 
 //Cadastrar o produto
-void cadastrar_produto ()
+void cadastrar_produto (int *aux)
 {
+    int n_produtos = *aux; //Um novo n_produtos é feito para melhor visualização, recebe o valor de n_produtos da main a partir do ponteiro
+
     if (n_produtos >=MAXproduto) //Limite na quantidade de produtos cadastrados
     {
         printf("\n\n\tO LIMITE DE PRODUTOS FOI ATINGIDO\n");
@@ -35,14 +43,15 @@ void cadastrar_produto ()
         struct produto item;
         printf("\n\t==== CADASTRO DE PRODUTO ====\n");
 
-        //C�digo
+        //Codigo
         item.codigo = n_produtos +1; //Ter a quantidade de produtos
         printf("\tCodigo gerado: %d\n", item.codigo);
 
         //Nome --------------------------------- PROBLEMA!!!!!!!!!
         printf("\n\tNome: ");
 
-        while(getchar()!='\n'); // CRIAR UMA FUNCAO PRA CHAMAR ESSE TRECO!!!!!
+         ler_string();
+//        while(getchar()!='\n'); // CRIAR UMA FUNCAO PRA CHAMAR ESSE TRECO!!!!!
 
        // fflush(stdin); //Limpar
         fgets(item.nome,50,stdin);
@@ -69,8 +78,18 @@ void registrar_venda ()
 }
 
 //Listar produtos disponivveis
-void listar_produtos_disp ()
+void listar_produtos_disp (int *aux)
 {
+    int n_produtos = *aux;
+    struct produto item;
+    printf("\n\t\tLISTA DE PRODUTOS DISPONIVEIS\n\n");
+    printf("Código | Nome | Quantidade disp | P. venda\n");
+    for (int i; i < n_produtos; i++)
+    {
+        printf("    %d  |   %s  |   %d  |   %f", item.codigo, item.nome, item.Qestoque, item.Pvenda);
+        printf("\n");
+    }
+    system ("pause");
 
 }
 //Listar vendas
@@ -85,7 +104,7 @@ void listar_produtos_falt ()
 
 }
 
-//Relat�rio
+//Relatorio
 void relatorio ()
 {
 
@@ -94,7 +113,7 @@ void relatorio ()
 
 int main()
 {
-    int opcao;
+    int opcao, n_produtos=0;
 
     do {
 
@@ -114,7 +133,9 @@ int main()
         {
 
         case 1:
-           cadastrar_produto();
+
+           cadastrar_produto(&n_produtos); //Enviar a posição com ponteiro, o "&" envia a posição da informação
+           n_produtos++;
            break;
 
         case 2:
@@ -122,7 +143,7 @@ int main()
             break;
 
         case 3:
-            listar_produtos_disp();
+            listar_produtos_disp(&n_produtos);
             break;
 
         case 4:
@@ -144,7 +165,7 @@ int main()
 
 
     system("cls");
-  }while (opcao!=7); // Repetir enquanto a op��o 7 for escolhidda
+  }while (opcao!=7); // Repetir enquanto a opcao 7 for escolhidda
 
 	return 0;
 }
