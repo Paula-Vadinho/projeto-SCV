@@ -31,26 +31,26 @@ void cadastrar_produto ()
     else
     {
 
-        struct produto item;
+        struct produto item[n_produtos];
         printf("\n\t==== CADASTRO DE PRODUTO ====\n");
 
         //Código
-        item.codigo = n_produtos +1; //Ter a quantidade de produtos
-        printf("\tCodigo gerado: %d\n", item.codigo);
+        item[n_produtos].codigo = n_produtos; //Ter a quantidade de produtos
+        printf("\tCodigo gerado: %d\n", item[n_produtos].codigo);
 
         //Nome --------------------------------- PROBLEMA!!!!!!!!!
         printf("\n\tNome: ");
         fflush(stdin); //Limpar
-        gets(item.nome); // Ler string
+        gets(item[n_produtos].nome); // Ler string
 
 
         //Quantidade em estoque
         printf("\n\tQuantidade em estoque: ");
-        scanf("%d", &item.Qestoque);
+        scanf("%d", &item[n_produtos].Qestoque);
 
         //Preço de venda
         printf("\n\tPreco de venda: ");
-        scanf("%f", &item.Pvenda);
+        scanf("%f", &item[n_produtos].Pvenda);
 
         printf("\n\n\tCADASTRO REALIZADO\n\n");
         system("pause");
@@ -108,6 +108,7 @@ int main()
         {
 
         case 1:
+            n_produtos+1;
            cadastrar_produto();
            break;
 
