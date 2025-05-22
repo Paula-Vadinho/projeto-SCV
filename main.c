@@ -108,7 +108,7 @@ int main()
         {
 
         case 1:
-            n_produtos+1;
+            n_produtos + 1; // Inteiro para registar diferentes itens
            cadastrar_produto();
            break;
 
