@@ -4,8 +4,7 @@
 #define MAXnome 50
 #define MAXproduto 49
 
-//Variaveis globais:
-//int n_produtos=0; // SUBISTITUIR POR PONTEIROS!!!!!!!
+//NÃO PRECISA DE PONTEIRO!!!!!!
 
 
 //Estrutura do produto
@@ -26,11 +25,10 @@ void ler_string ()
 
 
 //Cadastrar o produto
-void cadastrar_produto (int *aux)
+void cadastrar_produto (struct produto item[], int n_produto)
 {
-    int n_produtos = *aux; //Um novo n_produtos é feito para melhor visualização, recebe o valor de n_produtos da main a partir do ponteiro
 
-    if (n_produtos >=MAXproduto) //Limite na quantidade de produtos cadastrados
+    if (n_produto >=MAXproduto) //Limite na quantidade de produtos cadastrados
     {
         printf("\n\n\tO LIMITE DE PRODUTOS FOI ATINGIDO\n");
         system("pause");
@@ -40,12 +38,12 @@ void cadastrar_produto (int *aux)
     else
     {
 
-        struct produto item;
+
         printf("\n\t==== CADASTRO DE PRODUTO ====\n");
 
         //Codigo
-        item.codigo = n_produtos +1; //Ter a quantidade de produtos
-        printf("\tCodigo gerado: %d\n", item.codigo);
+        item[n_produto].codigo = n_produto; //Ter a quantidade de produtos
+        printf("\tCodigo gerado: %d\n", item[n_produto].codigo);
 
         //Nome --------------------------------- PROBLEMA!!!!!!!!!
         printf("\n\tNome: ");
@@ -54,17 +52,17 @@ void cadastrar_produto (int *aux)
 //        while(getchar()!='\n'); // CRIAR UMA FUNCAO PRA CHAMAR ESSE TRECO!!!!!
 
        // fflush(stdin); //Limpar
-        fgets(item.nome,50,stdin);
+        fgets(item[n_produto].nome,50,stdin);
 
 
 
         //Quantidade em estoque
         printf("\n\tQuantidade em estoque: ");
-        scanf("%d", &item.Qestoque);
+        scanf("%d", &item[n_produto].Qestoque);
 
         //Preco de venda
         printf("\n\tPreco de venda: ");
-        scanf("%f", &item.Pvenda);
+        scanf("%f", &item[n_produto].Pvenda);
 
         printf("\n\n\tCADASTRO REALIZADO\n\n");
         system("pause");
@@ -78,16 +76,15 @@ void registrar_venda ()
 }
 
 //Listar produtos disponivveis
-void listar_produtos_disp (int *aux)
+void listar_produtos_disp (struct produto item[],int n_produto)
 {
-    int n_produtos = *aux;
-    struct produto item;
+
     printf("\n\t\tLISTA DE PRODUTOS DISPONIVEIS\n\n");
-    printf("Código | Nome | Quantidade disp | P. venda\n");
-    for (int i; i < n_produtos; i++)
+    printf("Codigo | Nome | Quantidade disp | P. venda\n");
+    for (int i=1; i <= n_produto; i++)
     {
-        printf("    %d  |   %s  |   %d  |   %f", item.codigo, item.nome, item.Qestoque, item.Pvenda);
-        printf("\n");
+        printf("    %d  |   %s  |   %d  |   %.2f", item[i].codigo, item[i].nome, item[i].Qestoque, item[i].Pvenda);
+
     }
     system ("pause");
 
@@ -113,7 +110,9 @@ void relatorio ()
 
 int main()
 {
-    int opcao, n_produtos=0;
+
+    int opcao, n_produto=0;
+    struct produto item[MAXproduto];
 
     do {
 
@@ -133,9 +132,9 @@ int main()
         {
 
         case 1:
+           n_produto++;
+           cadastrar_produto(item, n_produto); //Enviar a posição com ponteiro, o "&" envia a posição da informação
 
-           cadastrar_produto(&n_produtos); //Enviar a posição com ponteiro, o "&" envia a posição da informação
-           n_produtos++;
            break;
 
         case 2:
@@ -143,7 +142,7 @@ int main()
             break;
 
         case 3:
-            listar_produtos_disp(&n_produtos);
+            listar_produtos_disp(item, n_produto);
             break;
 
         case 4:
