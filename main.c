@@ -72,7 +72,7 @@ void cadastrar_produto (struct produto item[], int n_produto)
 //Registrar venda
 void registrar_venda (struct produto item[], int n_produto)
 {
-    int i, correto;      //Pensando em fazer algo perguntando se o produto do codigo esta correto
+    int i, correto, CodVen=0;      //Pensando em fazer algo perguntando se o produto do codigo esta correto
     system("cls");
     printf("\n\n\tREGISTRAR UMA VENDA\n\n");
     do
@@ -97,6 +97,12 @@ void registrar_venda (struct produto item[], int n_produto)
 
     scanf("%d", &correto); //Temporario ate fazer a leitura da sring
     }while (correto !=1);
+
+    system ("cls");
+    //Registrar a venda
+    CodVen++;
+    printf("\n");
+
 
 }
 
