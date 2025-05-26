@@ -109,13 +109,20 @@ void registrar_venda (struct produto item[], int n_produto, int Codvenda)
         }
     }while (correto !=1);
 
+    //Perguntar a quantidade vendida:
+    do
+    {
     printf("\n\tINFORME A QUANTIDADE VENDIDA: ");
     scanf ("%d", &Qvendida);
 
     if (item[i].Qestoque - Qvendida <0)
     {
         printf("\nNao ha quantidade em estoque");
+        system ("pause");
+        system("cls");
     }
+    } while (item[i].Qestoque - Qvendida <0);
+
 
     //Se nao houve venda registrada no mesmo produto:
     if (item[i].Cvenda == 0)
@@ -166,6 +173,8 @@ void listar_produtos_disp (struct produto item[],int n_produto)
 void listar_vendas (struct produto item[], int n_produto)
 {
     system ("cls");
+
+    printf ("\n\n\tLISTA DE VENDAS\n\n");
      for (int i=0; i<=n_produto; i++) //Leitura dos itens
      {
          if (item[i].Cvenda!=0)
@@ -174,7 +183,7 @@ void listar_vendas (struct produto item[], int n_produto)
             printf("\n\tNome: %s", item[i].nome);
             printf("\tPreco de venda: %.2f", item[i].Pvenda);
             printf("\n\tQuantidade em estoque: %d", item[i].Qestoque);
-            printf("\n\tQuantidade vendida: %.0f", item[i].Vtotal/item[i].Pvenda);
+            printf("\n\tQuantidade vendida: %.0f", item[i].Vtotal/item[i].Pvenda); //Valor total dividido pelo valor individual
             printf("\n\tValor total vendido: %.2f", item[i].Vtotal);
             printf("\n\n=======================================================\n");
 
