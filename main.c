@@ -27,7 +27,7 @@ void ler_string ()
 //Cadastrar o produto
 void cadastrar_produto (struct produto item[], int n_produto)
 {
-
+    system("cls");
     if (n_produto >=MAXproduto) //Limite na quantidade de produtos cadastrados
     {
         printf("\n\n\tO LIMITE DE PRODUTOS FOI ATINGIDO\n");
@@ -39,7 +39,7 @@ void cadastrar_produto (struct produto item[], int n_produto)
     {
 
 
-        printf("\n\t==== CADASTRO DE PRODUTO ====\n");
+        printf("\n\n\t==== CADASTRO DE PRODUTO ====\n");
 
         //Codigo
         item[n_produto].codigo = n_produto; //Ter a quantidade de produtos
@@ -78,13 +78,18 @@ void registrar_venda ()
 //Listar produtos disponivveis
 void listar_produtos_disp (struct produto item[],int n_produto)
 {
-
+    system("cls");
     printf("\n\t\tLISTA DE PRODUTOS DISPONIVEIS\n\n");
-    printf("Codigo | Nome | Quantidade disp | P. venda\n");
+   // printf("Codigo | P.venda | Quantidade disp | Nome\n");
     for (int i=1; i <= n_produto; i++)
     {
-        printf("    %d  |   %s  |   %d  |   %.2f", item[i].codigo, item[i].nome, item[i].Qestoque, item[i].Pvenda);
-
+        printf("\n\tCodigo: %d", item[i].codigo);
+        printf("\n\tNome: %s", item[i].nome);
+        printf("\tPreco de venda: %.2f", item[i].Pvenda);
+        printf("\n\tQuantidade em estoque: %d", item[i].Qestoque);
+        printf("\n\n=======================================================\n");
+        //printf("  %d  |  %.2f  |  %d  |  %s", item[i].codigo,item[i].Pvenda , item[i].Qestoque,item[i].nome );
+       // printf("\n");
     }
     system ("pause");
 
@@ -133,7 +138,7 @@ int main()
 
         case 1:
            n_produto++;
-           cadastrar_produto(item, n_produto); //Enviar a posição com ponteiro, o "&" envia a posição da informação
+           cadastrar_produto(item, n_produto); //"item" está é a variavel da struct declarada no comeco do main, e n_produto serve para controle de quantidade
 
            break;
 
