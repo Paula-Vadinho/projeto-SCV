@@ -12,10 +12,10 @@ struct produto
 {
     char nome[MAXnome];
     int codigo;
-	int Qestoque;
-    float Pvenda;
-	int Cvenda;
-	float Vtotal;
+	int Qestoque; //Quantidade em estoque
+    float Pvenda;   //Preco de venda
+	int Cvenda;     //Código da venda
+	float Vtotal;   //Valor total da venda
 };
 //Leitura de strings
 void ler_string ()
@@ -49,7 +49,7 @@ void cadastrar_produto (struct produto item[], int n_produto)
         printf("\n\tNome: ");
 
          ler_string();
-//        while(getchar()!='\n'); // CRIAR UMA FUNCAO PRA CHAMAR ESSE TRECO!!!!!
+//        while(getchar()!='\n'); // CRIAR UMA FUNCAO PRA CHAMAR ESSE TRECO!!!!! ====== FEITO
 
        // fflush(stdin); //Limpar
         fgets(item[n_produto].nome,50,stdin);
@@ -70,13 +70,14 @@ void cadastrar_produto (struct produto item[], int n_produto)
 }
 
 //Registrar venda
-void registrar_venda (struct produto item[], int n_produto)
+void registrar_venda (struct produto item[], int n_produto, int Codvenda)
 {
-    int i, correto;      //Pensando em fazer algo perguntando se o produto do codigo esta correto
-    system("cls");
-    printf("\n\n\tREGISTRAR UMA VENDA\n\n");
+    int i, correto, Qvendida;      //Pensando em fazer algo perguntando se o produto do codigo esta correto
+
     do
     {
+        system("cls");
+        printf("\n\n\tREGISTRAR UMA VENDA\n\n");
         printf("\n\tCodigo |  Nome\n");
     for (int z=1; z<=n_produto;z++) //Mostrar produtos cadastrados
     {
@@ -92,12 +93,52 @@ void registrar_venda (struct produto item[], int n_produto)
     printf("\tPreco de venda: %.2f", item[i].Pvenda);
     printf("\n\tQuantidade em estoque: %d", item[i].Qestoque);
 
-    //leitura de string
+    //leitura de string ================================================================ ARRUMAR
     printf("\n\tConfirmar escolha (S/N): ");
+    printf("\nTEMPORARIO - Aperte 1 para prosseguir");
+
 
     scanf("%d", &correto); //Temporario ate fazer a leitura da sring
+
+
+    if (item[i].Qestoque <=0)
+        {
+            printf("\n\tO produto nao tem em estoque\n\t");
+            correto =0; //Ficar no while
+            system("pause");
+        }
     }while (correto !=1);
 
+    printf("\n\tINFORME A QUANTIDADE VENDIDA: ");
+    scanf ("%d", &Qvendida);
+
+    if (item[i].Qestoque - Qvendida <0)
+    {
+        printf("\nNao ha quantidade em estoque");
+    }
+
+    //Se nao houve venda registrada no mesmo produto:
+    if (item[i].Cvenda == 0)
+    {
+    item[i].Cvenda = Codvenda + 1; //Codvenda e um auxiliar para nn fazer repetir o mesmo
+    Codvenda++;
+
+    item[i].Vtotal = 0; //Apenas na primeira vez, eu quero limpar o lixo
+    }
+
+    //Informacao sobre a venda:
+    item[i].Vtotal = item[i].Vtotal + (item[i].Pvenda*Qvendida); //Valor total = valor anterior + valor novo
+    item[i].Qestoque = item[i].Qestoque - Qvendida;
+
+    system ("cls");
+    printf("\n\tCodigo de venda: %d", item[i].Cvenda);
+    printf("\n\tPreco de venda: %.2f", item[i].Pvenda);
+    printf("\n\tQuantidade vendida: %d", Qvendida);
+    printf ("\n\tQuantidade ainda em estoque: %d", item[i].Qestoque);
+    printf("\n\tValor total vendido: %.2f", item[i].Vtotal);
+
+    printf ("\n\n\tCADASTRO REALIZADO\n\n");
+    system("pause");
 }
 
 //Listar produtos disponivveis
@@ -120,16 +161,49 @@ void listar_produtos_disp (struct produto item[],int n_produto)
     system ("pause");
 
 }
-//Listar vendas
-void listar_vendas ()
-{
 
+//Listar vendas
+void listar_vendas (struct produto item[], int n_produto)
+{
+    system ("cls");
+     for (int i=0; i<=n_produto; i++) //Leitura dos itens
+     {
+         if (item[i].Cvenda!=0)
+         {
+            printf("\n\tCodigo: %d", item[i].codigo);
+            printf("\n\tNome: %s", item[i].nome);
+            printf("\tPreco de venda: %.2f", item[i].Pvenda);
+            printf("\n\tQuantidade em estoque: %d", item[i].Qestoque);
+            printf("\n\tQuantidade vendida: %.0f", item[i].Vtotal/item[i].Pvenda);
+            printf("\n\tValor total vendido: %.2f", item[i].Vtotal);
+            printf("\n\n=======================================================\n");
+
+         }
+     }
+     system("pause");
 }
 
-//Listar produtos em falta
-void listar_produtos_falt ()
-{
 
+//Listar produtos em falta
+void listar_produtos_falt (struct produto item[], int n_produto)
+{
+system("cls");
+    printf("\n\t\tLISTA DE PRODUTOS EM FALTA\n\n");
+   // printf("Codigo | P.venda | Quantidade disp | Nome\n");
+    for (int i=1; i <= n_produto; i++)
+    {
+        if (item[i].Qestoque ==0) //Mostrar apenas os que estao em estoque
+        {
+        printf("\n\tCodigo: %d", item[i].codigo);
+        printf("\n\tNome: %s", item[i].nome);
+        printf("\tPreco de venda: %.2f", item[i].Pvenda);
+        printf("\n\tQuantidade em estoque: %d", item[i].Qestoque);
+        printf("\n\tQuantidade vendida: %.0f", item[i].Vtotal/item[i].Pvenda);
+        printf("\n\tValor total vendido: %.2f", item[i].Vtotal);
+        printf("\n\n=======================================================\n");
+        }
+    }
+    system ("pause");
 }
 
 //Relatorio
@@ -142,12 +216,19 @@ void relatorio ()
 int main()
 {
 
-    int opcao, n_produto=0;
+    int opcao, n_produto=0, Codvenda=0;
     struct produto item[MAXproduto];
 
+    //For zerando todos os codigos de venda
+    for (int i=0; i<MAXproduto; i++)
+    {
+        item[i].Cvenda = 0;
+    }
+
+    //Codigo
     do {
 
-        printf("\n\n\t\tBEM VINDO!!");
+        printf("\n\n\t\tBEM VINDO!!\n");
         printf("\n\t1 - Cadastrar um Produto");
         printf("\n\t2 - Registrar uma Venda");
         printf("\n\t3 - Lista de Produtos Disponiveis");
@@ -169,7 +250,7 @@ int main()
            break;
 
         case 2:
-            registrar_venda(item, n_produto);
+            registrar_venda(item, n_produto, Codvenda);
             break;
 
         case 3:
@@ -177,19 +258,17 @@ int main()
             break;
 
         case 4:
-            listar_vendas();
+            listar_vendas(item, n_produto);
             break;
 
         case 5:
-            listar_produtos_falt();
+            listar_produtos_falt(item, n_produto);
             break;
 
 
         case 6:
             relatorio();
             break;
-
-
 
         }
 
