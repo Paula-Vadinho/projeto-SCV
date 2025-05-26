@@ -4,7 +4,7 @@
 #define MAXnome 50
 #define MAXproduto 49
 
-//NÃO PRECISA DE PONTEIRO!!!!!!
+
 
 
 //Estrutura do produto
@@ -68,10 +68,35 @@ void cadastrar_produto (struct produto item[], int n_produto)
         system("pause");
     }
 }
-//Registrar venda
-void registrar_venda ()
-{
 
+//Registrar venda
+void registrar_venda (struct produto item[], int n_produto)
+{
+    int i, correto;      //Pensando em fazer algo perguntando se o produto do codigo esta correto
+    system("cls");
+    printf("\n\n\tREGISTRAR UMA VENDA\n\n");
+    do
+    {
+        printf("\n\tCodigo |  Nome\n");
+    for (int z=1; z<=n_produto;z++) //Mostrar produtos cadastrados
+    {
+        printf("\t%d      |  %s  ", item[z].codigo, item[z].nome);
+
+    }
+
+    printf("\nInforme o codigo do produto: ");
+    scanf("%d", &i);
+
+    //Informações do produto
+    printf("\n\tNome: %s", item[i].nome);
+    printf("\tPreco de venda: %.2f", item[i].Pvenda);
+    printf("\n\tQuantidade em estoque: %d", item[i].Qestoque);
+
+    //leitura de string
+    printf("\n\tConfirmar escolha (S/N): ");
+
+    scanf("%d", &correto); //Temporario ate fazer a leitura da sring
+    }while (correto !=1);
 
 }
 
@@ -83,13 +108,14 @@ void listar_produtos_disp (struct produto item[],int n_produto)
    // printf("Codigo | P.venda | Quantidade disp | Nome\n");
     for (int i=1; i <= n_produto; i++)
     {
+        if (item[i].Qestoque !=0) //Mostrar apenas os que estao em estoque
+        {
         printf("\n\tCodigo: %d", item[i].codigo);
         printf("\n\tNome: %s", item[i].nome);
         printf("\tPreco de venda: %.2f", item[i].Pvenda);
         printf("\n\tQuantidade em estoque: %d", item[i].Qestoque);
         printf("\n\n=======================================================\n");
-        //printf("  %d  |  %.2f  |  %d  |  %s", item[i].codigo,item[i].Pvenda , item[i].Qestoque,item[i].nome );
-       // printf("\n");
+        }
     }
     system ("pause");
 
@@ -143,7 +169,7 @@ int main()
            break;
 
         case 2:
-            registrar_venda();
+            registrar_venda(item, n_produto);
             break;
 
         case 3:
