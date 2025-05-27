@@ -21,7 +21,6 @@ void ler_string ()
     while(getchar()!='\n');
 }
 
-
 //Cadastrar o produto
 void cadastrar_produto (struct produto item[], int n_produto)
 {
@@ -47,7 +46,7 @@ void cadastrar_produto (struct produto item[], int n_produto)
         printf("\n\tNome: ");
 
         ler_string();
-//        while(getchar()!='\n'); // CRIAR UMA FUNCAO PRA CHAMAR ESSE TRECO!!!!! ====== FEITO
+        //while(getchar()!='\n'); // CRIAR UMA FUNCAO PRA CHAMAR ESSE TRECO!!!!! ====== FEITO
 
        // fflush(stdin); //Limpar
         fgets(item[n_produto].nome,50,stdin);
@@ -171,6 +170,7 @@ void listar_vendas (struct produto item[], int n_produto)
      {
          if (item[i].Cvenda!=0)
          {
+            printf("\n\tCodigo: %d", item[i].codigo);
             printf("\n\tCodigo de venda: %d", item[i].Cvenda);
             printf("\n\tNome: %s", item[i].nome);
             printf("\tPreco de venda: %.2f", item[i].Pvenda);
@@ -211,7 +211,7 @@ system("cls");
 //Relatorio
 void relatorio (struct produto item[], int n_produto)
 {
-    int opcao, i;
+    int opcao, i, z;
     float aux=0;
     do
     {
@@ -234,9 +234,24 @@ void relatorio (struct produto item[], int n_produto)
                     if (item[i].Cvenda !=0)
                     {
                         printf("\n\t      %d       |             %.0f", item[i].Cvenda, (item[i].Vtotal/item[i].Pvenda));
+
+                        if (aux < item[i].Vtotal/item[i].Pvenda)
+                        {
+                            aux = item[i].Vtotal/item[i].Pvenda;
+                            z = i;
+                        }
                     }
-                    //Fazer a analise do produto mais vendido =========================================================================== FAZER
                 }
+
+                printf("\n\n\tPRODUTO MAIS VENDIDO\n");
+
+                printf("\n\tCodigo: %d", item[z].codigo);
+                printf("\n\tCodigo de venda: %d", item[z].Cvenda);
+                printf("\n\tNome: %s", item[z].nome);
+                printf("\tPreco de venda: %.2f", item[z].Pvenda);
+                printf("\n\tQuantidade em estoque: %d", item[z].Qestoque);
+                printf("\n\tQuantidade vendida: %.0f", (item[z].Vtotal/item[i].Pvenda);
+                printf("\n\tValor total vendido: %.2f", item[z].Vtotal);
 
                 printf ("\n\n");
                 system ("pause");
@@ -334,13 +349,11 @@ int main()
             listar_produtos_falt(item, n_produto);
             break;
 
-
         case 6:
             relatorio(item, n_produto);
             break;
 
         }
-
 
     system("cls");
   }while (opcao!=7); // Repetir enquanto a opcao 7 for escolhidda
@@ -351,6 +364,11 @@ int main()
 
 /*
 Fazer no codigo:
-1 - Fazer mais de uma venda antes de voltar pra tela
+1 - Fazer mais de uma venda antes de voltar pra tela (improvavel)
+2 - Arrumar a string na confirmacao de venda
 
+Dificuldades:
+1 - Acumulo de matéria do semestre
+    descricao: juncao de todo coteudo aprendido no semestre dentro de 1 unico projeto
+    solucao: revisao aprofundada do conteudo
 */
