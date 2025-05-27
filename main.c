@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define MAXnome 50
-#define MAXproduto 49
+#define MAXproduto 50
 #define MAXvenda 100
 
 
@@ -209,7 +209,7 @@ system("cls");
 }
 
 //Relatorio
-void relatorio (struct produto item[], int n_produto)
+void relatorio (struct produto item[], int n_produto)  //FAZER : recebe ponteiro Codvenda e verifica se ja houve venda
 {
     int opcao, i, z;
     float aux=0;
@@ -228,12 +228,12 @@ void relatorio (struct produto item[], int n_produto)
         switch (opcao)
         {
             case 1: //Produto mais vendido
-                printf ("\n\n\tCodigo Venda |  Quantidade vendida"); //"mostrando o código de cada venda e a quantidade vendida"
+                printf ("\n\n\tCodigo  |  Codigo de Venda |  Quantidade vendida"); //"mostrando o código de cada venda e a quantidade vendida"
                 for (i=0;i<=n_produto; i++)
                 {
                     if (item[i].Cvenda !=0)
                     {
-                        printf("\n\t      %d       |             %.0f", item[i].Cvenda, (item[i].Vtotal/item[i].Pvenda));
+                        printf("\n\t%d    |        %d        |             %.0f", item[i].codigo, item[i].Cvenda, (item[i].Vtotal/item[i].Pvenda));
 
                         if (aux < item[i].Vtotal/item[i].Pvenda)
                         {
@@ -250,7 +250,7 @@ void relatorio (struct produto item[], int n_produto)
                 printf("\n\tNome: %s", item[z].nome);
                 printf("\tPreco de venda: %.2f", item[z].Pvenda);
                 printf("\n\tQuantidade em estoque: %d", item[z].Qestoque);
-                printf("\n\tQuantidade vendida: %.0f", (item[z].Vtotal/item[i].Pvenda);
+                printf("\n\tQuantidade vendida: %.0f", (item[z].Vtotal/item[i].Pvenda));
                 printf("\n\tValor total vendido: %.2f", item[z].Vtotal);
 
                 printf ("\n\n");
@@ -258,12 +258,12 @@ void relatorio (struct produto item[], int n_produto)
                 break;
 
             case 2: //Total de vendas por produto
-                printf ("\n\n\tCodigo Venda |  Quantidade vendida"); //"mostrando o código de cada venda e a quantidade vendida"
+                printf ("\n\n\tCodigo  |  Codigo de Venda |  Quantidade vendida"); //"mostrando o código de cada venda e a quantidade vendida"
                 for (i=0;i<=n_produto; i++)
                 {
                     if (item[i].Cvenda !=0)
                     {
-                        printf("\n\t      %d      |             %.0f", item[i].Cvenda, (item[i].Vtotal/item[i].Pvenda));
+                        printf("\n\t%d    |        %d        |             %.0f", item[i].codigo, item[i].Cvenda, (item[i].Vtotal/item[i].Pvenda));
                     }
 
                 }
@@ -271,12 +271,12 @@ void relatorio (struct produto item[], int n_produto)
                 break;
 
             case 3: //Valor total obtido com as vendas ---- colocar: codigo do produto, nome do produto, valor da venda
-                printf ("\n\n\tCodigo Venda |  Venda total");
+                printf ("\n\n\tCodigo  |  Codigo de Venda |  Quantidade vendida");
                 for (i=0;i<=n_produto; i++)
                 {
                     if (item[i].Cvenda !=0)
                     {
-                        printf("\n\t      %d      |       %.2f", item[i].Cvenda, item[i].Vtotal);
+                        printf("\n\t%d    |        %d        |             %.0f", item[i].codigo, item[i].Cvenda, (item[i].Vtotal/item[i].Pvenda));
                         aux = aux + item[i].Vtotal;
                     }
 
@@ -366,6 +366,8 @@ int main()
 Fazer no codigo:
 1 - Fazer mais de uma venda antes de voltar pra tela (improvavel)
 2 - Arrumar a string na confirmacao de venda
+
+Se não tiver produto vendido, avisar o usuario
 
 Dificuldades:
 1 - Acumulo de matéria do semestre
