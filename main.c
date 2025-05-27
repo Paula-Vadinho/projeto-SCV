@@ -45,14 +45,12 @@ void cadastrar_produto (struct produto item[], int n_produto)
         item[n_produto].codigo = n_produto; //Ter a quantidade de produtos
         printf("\tCodigo gerado: %d\n", item[n_produto].codigo);
 
-        //Nome --------------------------------- PROBLEMA!!!!!!!!!
+        //Nome
         printf("\n\tNome: ");
 
          ler_string();
-//        while(getchar()!='\n'); // CRIAR UMA FUNCAO PRA CHAMAR ESSE TRECO!!!!! ====== FEITO
 
-       // fflush(stdin); //Limpar
-        fgets(item[n_produto].nome,50,stdin);
+//        fgets(item[n_produto].nome,50,stdin);
 
 
 
@@ -115,8 +113,6 @@ void registrar_venda (struct produto item[], int n_produto, int *Codvenda)
             } while (item[i].Qestoque - Qvendida <0);
 
     }while (correto !=1);
-
-
 
 
 
@@ -284,7 +280,7 @@ void relatorio (struct produto item[], int n_produto)
 int main()
 {
 
-    int opcao, n_produto=0, Codvenda=0;
+    int opcao, n_produto=0, Codvenda=0,RegVenda=0;
     struct produto item[MAXproduto];
 
     //For zerando todos os codigos de venda
@@ -318,7 +314,14 @@ int main()
            break;
 
         case 2:
-            registrar_venda(item, n_produto, &Codvenda); //Usar ponteiro no Codvenda
+            if (RegVenda <MAXvenda) //"o número máximo de vendas é de 100"
+            {
+                registrar_venda(item, n_produto, &Codvenda); //Usar ponteiro no Codvenda
+            }
+            else
+            {
+                printf ("\n\n\tLIMITE DE VENDAS ATINGIDO");
+            }
             break;
 
         case 3:
