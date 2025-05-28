@@ -17,8 +17,8 @@ struct produto
 };
 struct st_venda
 {
-    int CodigoV;
-    struct produto pd;
+    int Cvenda;
+    struct produto prod;
     float Vtotal;
 
 };
@@ -30,7 +30,7 @@ void ler_string ()
 }
 //========================================================================================================================================
 
-//                                                      Cadastrar o produto
+//                                                      Cadastrar o produto -- Funcionando
 
 //========================================================================================================================================
 void cadastrar_produto (struct produto item[], int n_produto)
@@ -77,7 +77,7 @@ void cadastrar_produto (struct produto item[], int n_produto)
 }
 //========================================================================================================================================
 
-//                                                      Registrar venda
+//                                                      Registrar venda  -- Corrigido
 
 //========================================================================================================================================
 void registrar_venda (struct produto item[], int n_produto, int *Codvenda, struct st_venda venda[])
@@ -125,8 +125,8 @@ void registrar_venda (struct produto item[], int n_produto, int *Codvenda, struc
                     //system("cls");
                 }
             }while (item[i].Qestoque - Qvendida <0);
-
-
+//Não e mais necessario, uma vez que toda venda produz um codigo de venda diferente
+/*
     //Se nao houve venda registrada no mesmo produto:
     if (item[i].Cvenda == 0)
     {
@@ -135,26 +135,34 @@ void registrar_venda (struct produto item[], int n_produto, int *Codvenda, struc
 
         item[i].Vtotal = 0; //Apenas na primeira vez, eu quero limpar o lixo
     }
+*/
+//    NOVO ======================================================================================================================== NOVO
+    venda[aux+1].Cvenda = aux+1;
+    venda[aux+1].prod = item[i]; //Guarda as informações do produto dentro da venda
+    venda[aux+1].Vtotal = (item[i].Pvenda*Qvendida);
+
+
 
     //Informacao sobre a venda:
-    item[i].Vtotal = item[i].Vtotal + (item[i].Pvenda*Qvendida); //Valor total = valor anterior + valor novo
+//    item[i].Vtotal = item[i].Vtotal + (item[i].Pvenda*Qvendida); //Valor total = valor anterior + valor novo
     item[i].Qestoque = item[i].Qestoque - Qvendida;
 
     system ("cls");
-    printf("\n\tCodigo de venda: %d", item[i].Cvenda);
+    printf("\n\tCodigo de venda: %d", venda[aux+1].Cvenda);
     printf("\n\tPreco de venda: %.2f", item[i].Pvenda);
     printf("\n\tQuantidade vendida: %d", Qvendida);
     printf ("\n\tQuantidade ainda em estoque: %d", item[i].Qestoque);
-    printf("\n\tValor total vendido: %.2f", item[i].Vtotal);
+    printf("\n\tValor total vendido: %.2f", venda[aux+1].Vtotal);
 
     printf ("\n\n\tCADASTRO REALIZADO\n\n");
     system("pause");
 
+    aux++;
     *Codvenda = aux; //Guardar no ponteiro
 }
 //========================================================================================================================================
 
-//                                                      Listar produtos disponiveis
+//                                                      Listar produtos disponiveis - Funcionando
 
 //========================================================================================================================================
 void listar_produtos_disp (struct produto item[],int n_produto)
@@ -178,25 +186,27 @@ void listar_produtos_disp (struct produto item[],int n_produto)
 }
 //========================================================================================================================================
 
-//                                                  Listar vendas
+//                                                  Listar vendas  - Corrigido
 
 //========================================================================================================================================
-void listar_vendas (struct produto item[], int n_produto)
+void listar_vendas (int *Codvenda, struct st_venda venda[])
 {
     system ("cls");
 
+    int aux = *Codvenda;
+
     printf ("\n\n\tLISTA DE VENDAS\n\n");
-     for (int i=0; i<=n_produto; i++) //Leitura dos itens
+     for (int i=0; i<=aux; i++) //Leitura dos itens
      {
-         if (item[i].Cvenda!=0)
+         if (venda[i].Cvenda!=0)
          {
-            printf("\n\tCodigo: %d", item[i].codigo);
-            printf("\n\tCodigo de venda: %d", item[i].Cvenda);
-            printf("\n\tNome: %s", item[i].nome);
-            printf("\tPreco de venda: %.2f", item[i].Pvenda);
-            printf("\n\tQuantidade em estoque: %d", item[i].Qestoque);
-            printf("\n\tQuantidade vendida: %.0f", item[i].Vtotal/item[i].Pvenda); //Valor total dividido pelo valor individual
-            printf("\n\tValor total vendido: %.2f", item[i].Vtotal);
+            printf("\n\tCodigo de venda: %d", venda[i].Cvenda);
+            printf("\n\tCodigo do produto: %d", venda[i].prod.codigo);
+            printf("\n\tNome: %s", venda[i].prod.nome);
+            printf("\tPreco de venda: %.2f", venda[i].prod.Pvenda);
+//            printf("\n\tQuantidade em estoque: %d", item[i].Qestoque);
+            printf("\n\tQuantidade vendida: %.0f", venda[i].Vtotal/venda[i].prod.Pvenda); //Valor total dividido pelo valor individual
+            printf("\n\tValor total vendido: %.2f", venda[i].Vtotal);
             printf("\n\n=======================================================\n");
 
          }
@@ -205,7 +215,7 @@ void listar_vendas (struct produto item[], int n_produto)
 }
 //========================================================================================================================================
 
-//                                              Listar produtos em falta
+//                                              Listar produtos em falta  - Em Andamento
 
 //========================================================================================================================================
 void listar_produtos_falt (struct produto item[], int n_produto)
@@ -218,12 +228,12 @@ system("cls");
         if (item[i].Qestoque ==0) //Mostrar apenas os que estao em estoque
         {
             printf("\n\tCodigo: %d", item[i].codigo);
-            printf("\n\tCodigo de venda: %d", item[i].Cvenda);
+//           printf("\n\tCodigo de venda: %d", item[i].Cvenda);
             printf("\n\tNome: %s", item[i].nome);
             printf("\tPreco de venda: %.2f", item[i].Pvenda);
             printf("\n\tQuantidade em estoque: %d", item[i].Qestoque);
-            printf("\n\tQuantidade vendida: %.0f", item[i].Vtotal/item[i].Pvenda);
-            printf("\n\tValor total vendido: %.2f", item[i].Vtotal);
+//            printf("\n\tQuantidade vendida: %.0f", item[i].Vtotal/item[i].Pvenda);
+//            printf("\n\tValor total vendido: %.2f", item[i].Vtotal);
             printf("\n\n=======================================================\n");
         }
     }
@@ -360,7 +370,7 @@ int main()
         case 2:
             if (RegVenda <MAXvenda) //"o número máximo de vendas é de 100"
             {
-                registrar_venda(item, n_produto, &Codvenda, venda); //Usar ponteiro no Codvenda
+                registrar_venda(item, n_produto, &Codvenda, venda); //Envia a struct item, a quantidade de produtos cadastrados, a quantidade de vendas realziadas, e a struct venda
             }
             else
             {
@@ -373,7 +383,7 @@ int main()
             break;
 
         case 4:
-            listar_vendas(item, n_produto);
+            listar_vendas(&Codvenda, venda); // Envia a quantidade de vendas realizadas (posicao do ponteiro) e a struct venda
             break;
 
         case 5:
