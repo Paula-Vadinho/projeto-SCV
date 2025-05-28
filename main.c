@@ -15,13 +15,24 @@ struct produto
 	int Cvenda;     //Código da venda
 	float Vtotal;   //Valor total da venda
 };
+struct st_venda
+{
+    int CodigoV;
+    struct produto pd;
+    float Vtotal;
+
+};
+
 //Leitura de strings
 void ler_string ()
 {
     while(getchar()!='\n');
 }
+//========================================================================================================================================
 
-//Cadastrar o produto
+//                                                      Cadastrar o produto
+
+//========================================================================================================================================
 void cadastrar_produto (struct produto item[], int n_produto)
 {
     system("cls");
@@ -64,9 +75,12 @@ void cadastrar_produto (struct produto item[], int n_produto)
         system("pause");
     }
 }
+//========================================================================================================================================
 
-//Registrar venda
-void registrar_venda (struct produto item[], int n_produto, int *Codvenda)
+//                                                      Registrar venda
+
+//========================================================================================================================================
+void registrar_venda (struct produto item[], int n_produto, int *Codvenda, struct st_venda venda[])
 {
     int i, correto, Qvendida, aux;      //Pensando em fazer algo perguntando se o produto do codigo esta correto
     aux = *Codvenda; //O aux recebe o valor de Codvenda, no final do void ele muda o valor e guarda na main
@@ -138,8 +152,11 @@ void registrar_venda (struct produto item[], int n_produto, int *Codvenda)
 
     *Codvenda = aux; //Guardar no ponteiro
 }
+//========================================================================================================================================
 
-//Listar produtos disponivveis
+//                                                      Listar produtos disponiveis
+
+//========================================================================================================================================
 void listar_produtos_disp (struct produto item[],int n_produto)
 {
     system("cls");
@@ -159,8 +176,11 @@ void listar_produtos_disp (struct produto item[],int n_produto)
     system ("pause");
 
 }
+//========================================================================================================================================
 
-//Listar vendas
+//                                                  Listar vendas
+
+//========================================================================================================================================
 void listar_vendas (struct produto item[], int n_produto)
 {
     system ("cls");
@@ -183,9 +203,11 @@ void listar_vendas (struct produto item[], int n_produto)
      }
      system("pause");
 }
+//========================================================================================================================================
 
+//                                              Listar produtos em falta
 
-//Listar produtos em falta
+//========================================================================================================================================
 void listar_produtos_falt (struct produto item[], int n_produto)
 {
 system("cls");
@@ -208,7 +230,12 @@ system("cls");
     system ("pause");
 }
 
-//Relatorio
+//========================================================================================================================================
+
+//                                      Relatorio
+
+//========================================================================================================================================
+
 void relatorio (struct produto item[], int n_produto)  //FAZER : recebe ponteiro Codvenda e verifica se ja houve venda
 {
     int opcao, i, z;
@@ -288,13 +315,17 @@ void relatorio (struct produto item[], int n_produto)  //FAZER : recebe ponteiro
 
     }while (opcao !=4);
 }
+//========================================================================================================================================
 
+//                                                             MAIN
 
+//========================================================================================================================================
 int main()
 {
 
     int opcao, n_produto=0, Codvenda=0,RegVenda=0;
     struct produto item[MAXproduto];
+    struct st_venda venda[MAXvenda];
 
     //For zerando todos os codigos de venda
     for (int i=0; i<MAXproduto; i++)
@@ -329,7 +360,7 @@ int main()
         case 2:
             if (RegVenda <MAXvenda) //"o número máximo de vendas é de 100"
             {
-                registrar_venda(item, n_produto, &Codvenda); //Usar ponteiro no Codvenda
+                registrar_venda(item, n_produto, &Codvenda, venda); //Usar ponteiro no Codvenda
             }
             else
             {
@@ -373,4 +404,7 @@ Dificuldades:
 1 - Acumulo de matéria do semestre
     descricao: juncao de todo coteudo aprendido no semestre dentro de 1 unico projeto
     solucao: revisao aprofundada do conteudo
+
+2- Confusão com as structs
+    descricao: uso apenas da struct produto
 */
