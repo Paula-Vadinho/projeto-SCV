@@ -270,7 +270,7 @@ void relatorio (struct produto item[], struct st_venda vendas[], int *Codvenda, 
                         {
                             if (vendas[i].prod.codigo == item[j].codigo)
                             {
-                                soma += vendas[i].Vtotal / vendas[i].prod.Pvenda;
+                                soma = soma + (vendas[i].Vtotal / vendas[i].prod.Pvenda);
                             }
                         }
                         if (soma > maior_quantidade) {
@@ -278,7 +278,10 @@ void relatorio (struct produto item[], struct st_venda vendas[], int *Codvenda, 
                             item_maisVendido = j;
                     }
                 }
-                printf("\n\tProduto mais vendido: %s == %d unidades\n", item[item_maisVendido].nome, maior_quantidade);
+                printf("\n\tProduto mais vendido: \n");
+                printf("\n\tNome: %s", item[item_maisVendido].nome);
+                printf("\tQuantidade: %d\n\n", maior_quantidade);
+
                 system("pause");
                 break;
 
@@ -301,7 +304,10 @@ void relatorio (struct produto item[], struct st_venda vendas[], int *Codvenda, 
                     }
                     if (soma_valor > 0 || soma_quantidade >0)
                         {
-                            printf("\t%s == R$ %.2f  ==  %d Unidades\n", item[z].nome, soma_valor, soma_quantidade);
+                            printf ("\n\n\tNome: %s", item[z].nome);
+                            printf ("\tTotal: R$ %.2f", soma_valor);
+                            printf ("\n\tQuantidade : ", soma_quantidade);
+                            printf("\n\n=======================================================\n");
                         }
                 }
 
@@ -393,6 +399,8 @@ int main()
 Fazer no codigo:
 1 - Fazer mais de uma venda antes de voltar pra tela (improvavel)
 2 - Arrumar a string na confirmacao de venda
+Falta case 3 do relatório
+Falta leitura de string e confimação de venda
 
 Se não tiver produto vendido, avisar o usuario
 
