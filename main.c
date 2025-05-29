@@ -84,56 +84,57 @@ void registrar_venda (struct produto item[], int n_produto, int *Codvenda, struc
     int i, Qvendida, n_venda;      //Pensando em fazer algo perguntando se o produto do codigo esta correto
     char correto = 'S';
     n_venda = *Codvenda; //O n_venda recebe o valor de Codvenda, no final do void ele muda o valor e guarda na main
-    do
+
+    do  //Perguntar a quantidade vendida e se não estiver em estoque volta
     {
-        system("cls");
-        printf("\n\n\tREGISTRAR UMA VENDA\n\n");
-        printf("\n\tCodigo |  Nome\n");
-        for (int z=0; z<n_produto;z++) //Mostrar produtos cadastrados
+        do //Confirma a escolha do produto
         {
-            printf("\t%d      |  %s  ", item[z].codigo, item[z].nome);
-
-        }
-
-        printf("\nInforme o codigo do produto: ");
-        scanf("%d", &i);
-
-
-        //Informações do produto
-        printf("\n\tNome: %s", item[i].nome);
-        printf("\tPreco de venda: %.2f", item[i].Pvenda);
-        printf("\n\tQuantidade em estoque: %d", item[i].Qestoque);
-
-        //leitura de string =================================================================================== ARRUMAR
-        printf("\n\tConfirmar escolha (S/N): ");
-       // printf("\nTEMPORARIO - Aperte 1 para prosseguir: ");
-
-        ler_string();
-        scanf("%c", &correto); //Temporario ate fazer a leitura da sring
-
-        if ((correto != 's') && (correto != 'S') && (correto != 'n')&&(correto !='N'))
-        {
-            printf("\n\tDIGITE SOMENTE S PARA SIM OU N PARA NÃO\n\n");
-            system ("pause");
-        }
-
-
-
-
-    }while (correto != 's' && correto != 'S');
-
-    do  //Perguntar a quantidade vendida:
+            system("cls");
+            printf("\n\n\tREGISTRAR UMA VENDA\n\n");
+            printf("\n\tCodigo |  Nome\n");
+            for (int z=0; z<n_produto;z++) //Mostrar produtos cadastrados
             {
-                printf("\n\tINFORME A QUANTIDADE VENDIDA: ");
-                scanf ("%d", &Qvendida);
+                printf("\t%d      |  %s  ", item[z].codigo, item[z].nome);
 
-                if (item[i].Qestoque - Qvendida <0)
-                {
-                    printf("\nNao ha quantidade em estoque\n\n");
-                    system ("pause");
-                    //system("cls");
-                }
-            }while (item[i].Qestoque - Qvendida <0);
+            }
+
+            printf("\nInforme o codigo do produto: ");
+            scanf("%d", &i);
+
+
+            //Informações do produto
+            printf("\n\tNome: %s", item[i].nome);
+            printf("\tPreco de venda: %.2f", item[i].Pvenda);
+            printf("\n\tQuantidade em estoque: %d", item[i].Qestoque);
+
+            //Confirmar Escolha
+            printf("\n\tConfirmar escolha (S/N): ");
+
+            ler_string();
+            scanf("%c", &correto);
+
+            if ((correto != 's') && (correto != 'S') && (correto != 'n')&&(correto !='N'))
+            {
+                printf("\n\tDIGITE SOMENTE S PARA SIM OU N PARA NÃO\n\n");
+                system ("pause");
+            }
+
+
+
+
+        }while (correto != 's' && correto != 'S');
+
+
+        printf("\n\tINFORME A QUANTIDADE VENDIDA: ");
+        scanf ("%d", &Qvendida);
+
+        if (item[i].Qestoque - Qvendida <0)
+        {
+                printf("\nNao ha quantidade em estoque\n\n");
+                system ("pause");
+
+        }
+    }while (item[i].Qestoque - Qvendida <0);
 
 
     venda[n_venda].Cvenda = n_venda;  //Define o código do produto
@@ -245,7 +246,7 @@ void relatorio (struct produto item[], struct st_venda vendas[], int *Codvenda, 
     int n_venda = *Codvenda;
     int maior_quantidade = 0; //Usado case 1
     int item_maisVendido = 0; //Usado case 1
-    int soma_valor_total =0; //Usado case 3
+    float soma_valor_total =0; //Usado case 3
 
     do
     {
@@ -283,16 +284,17 @@ void relatorio (struct produto item[], struct st_venda vendas[], int *Codvenda, 
                                 soma = soma + (vendas[i].Vtotal / vendas[i].prod.Pvenda);
                             }
                         }
-                        if (soma > maior_quantidade) {
+                        if (soma > maior_quantidade)
+                        {
                             maior_quantidade = soma;
                             item_maisVendido = j;
-                    }
+                        }
                 }
 
                 printf("\n\tProduto mais vendido: \n");
-                printf("\nCodigo do produto: %d", item[z].codigo);
+                printf("\n\tCodigo do produto: %d", item[item_maisVendido].codigo);
                 printf("\n\tNome: %s", item[item_maisVendido].nome);
-                printf("\tQuantidade: %d\n\n", maior_quantidade);
+                printf("\tQuantidade vendida: %d\n\n", maior_quantidade);
 
                 system("pause");
                 break;
@@ -315,10 +317,10 @@ void relatorio (struct produto item[], struct st_venda vendas[], int *Codvenda, 
                     }
                     if (soma_valor > 0 || soma_quantidade >0)
                         {
-                            printf("\nCodigo do produto: %d", item[z].codigo);
+                            printf("\n\tCodigo do produto: %d", item[z].codigo);
                             printf ("\n\n\tNome: %s", item[z].nome);
                             printf ("\tTotal: R$ %.2f", soma_valor);
-                            printf ("\n\tQuantidade : %d", soma_quantidade);
+                            printf ("\n\tQuantidade vendida: %d", soma_quantidade);
                             printf("\n\n=======================================================\n");
                         }
                 }
@@ -346,7 +348,7 @@ void relatorio (struct produto item[], struct st_venda vendas[], int *Codvenda, 
                     }
                     if (soma_valor > 0 || soma_quantidade >0)
                         {
-                            printf("\t      %d        |       %.2f       | %s", item[z].codigo, soma_valor, item[z].nome);
+                            printf("\t      %d        |       %.2f      | %s", item[z].codigo, soma_valor, item[z].nome);
                             soma_valor_total = soma_valor_total + soma_valor;
                         }
                 }
@@ -451,4 +453,6 @@ Dificuldades:
 2- Confusão com as structs
     descricao: uso apenas da struct produto
     solicao: Estudo com materia na internet
+
+3- Prazo curto e gerenciamento de tempo com outras matérias / outras entregas
 */
