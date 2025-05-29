@@ -22,7 +22,7 @@ struct st_venda
 
 };
 
-//Leitura de strings
+//Limpar buffer
 void ler_string ()
 {
     while(getchar()!='\n');
@@ -81,8 +81,8 @@ void cadastrar_produto (struct produto item[], int n_produto)
 //========================================================================================================================================
 void registrar_venda (struct produto item[], int n_produto, int *Codvenda, struct st_venda venda[])
 {
-    int i, correto, Qvendida, aux;      //Pensando em fazer algo perguntando se o produto do codigo esta correto
-    aux = *Codvenda; //O aux recebe o valor de Codvenda, no final do void ele muda o valor e guarda na main
+    int i, correto, Qvendida, n_venda;      //Pensando em fazer algo perguntando se o produto do codigo esta correto
+    n_venda = *Codvenda; //O n_venda recebe o valor de Codvenda, no final do void ele muda o valor e guarda na main
     do
     {
         system("cls");
@@ -104,7 +104,7 @@ void registrar_venda (struct produto item[], int n_produto, int *Codvenda, struc
 
         //leitura de string =================================================================================== ARRUMAR
         printf("\n\tConfirmar escolha (S/N): ");
-        printf("\nTEMPORARIO - Aperte 1 para prosseguir");
+        printf("\nTEMPORARIO - Aperte 1 para prosseguir: ");
 
 
         scanf("%d", &correto); //Temporario ate fazer a leitura da sring
@@ -126,24 +126,24 @@ void registrar_venda (struct produto item[], int n_produto, int *Codvenda, struc
             }while (item[i].Qestoque - Qvendida <0);
 
 
-    venda[aux+1].Cvenda = aux+1;  //Define o código do produto
-    venda[aux+1].prod = item[i]; //Guarda as informações do produto dentro da venda
-    venda[aux+1].Vtotal = (item[i].Pvenda*Qvendida);
+    venda[n_venda+1].Cvenda = n_venda+1;  //Define o código do produto
+    venda[n_venda+1].prod = item[i]; //Guarda as informações do produto dentro da venda
+    venda[n_venda+1].Vtotal = (item[i].Pvenda*Qvendida);
 
     item[i].Qestoque = item[i].Qestoque - Qvendida;
 
     system ("cls");
-    printf("\n\tCodigo de venda: %d", venda[aux+1].Cvenda);
+    printf("\n\tCodigo de venda: %d", venda[n_venda+1].Cvenda);
     printf("\n\tPreco de venda: %.2f", item[i].Pvenda);
     printf("\n\tQuantidade vendida: %d", Qvendida);
     printf ("\n\tQuantidade ainda em estoque: %d", item[i].Qestoque);
-    printf("\n\tValor total vendido: %.2f", venda[aux+1].Vtotal);
+    printf("\n\tValor total vendido: %.2f", venda[n_venda+1].Vtotal);
 
     printf ("\n\n\tCADASTRO REALIZADO\n\n");
     system("pause");
 
-    aux++;
-    *Codvenda = aux; //Guardar no ponteiro
+    n_venda++;
+    *Codvenda = n_venda; //Guardar no ponteiro
 }
 //========================================================================================================================================
 
@@ -410,4 +410,5 @@ Dificuldades:
 
 2- Confusão com as structs
     descricao: uso apenas da struct produto
+    solicao: Estudo com materia na internet
 */
