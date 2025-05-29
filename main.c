@@ -287,7 +287,6 @@ void relatorio (struct produto item[], struct st_venda vendas[], int *Codvenda, 
 
             case 2: //Total de vendas por produto
 
-                printf("\n\tNOME  |  Valor total  |  Quantidade\n\n");
 
                 for (int z=0; z<=n_produto; z++)
                 {
@@ -306,7 +305,7 @@ void relatorio (struct produto item[], struct st_venda vendas[], int *Codvenda, 
                         {
                             printf ("\n\n\tNome: %s", item[z].nome);
                             printf ("\tTotal: R$ %.2f", soma_valor);
-                            printf ("\n\tQuantidade : ", soma_quantidade);
+                            printf ("\n\tQuantidade : %d", soma_quantidade);
                             printf("\n\n=======================================================\n");
                         }
                 }
