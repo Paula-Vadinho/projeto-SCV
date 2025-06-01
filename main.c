@@ -130,13 +130,13 @@ void registrar_venda (struct produto item[], int n_produto, int *Codvenda, struc
 
         if (item[i].Qestoque - Qvendida <0)
         {
-                printf("\nNao ha quantidade em estoque\n\n");
+                printf("\n\tNao ha quantidade em estoque\n\n");
                 system ("pause");
 
         }
         if (Qvendida<0)
         {
-            printf("\nQUANTIDADE INVALIDA");
+            printf("\n\tQUANTIDADE INVALIDA\n\n");
             system("pause");
 
         }
