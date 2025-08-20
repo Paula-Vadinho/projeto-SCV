@@ -22,15 +22,15 @@ int leitura (int item)
 int main()
 {
     int i, opcao=0;
-
+//pin t
     do {
 
         printf("\n\n\t\tBEM VINDO!!");
         printf("\n\t1 - Cadastrar um Produto");
         printf("\n\t2 - Registrar uma Venda");
-        printf("\n\t3 - Lista de Produtos Disponíveis");
+        printf("\n\t3 - Lista de Produtos Disponï¿½veis");
         printf("\n\t4 - Lista de Vendas");
-        printf("\n\t5 - Relatório");
+        printf("\n\t5 - Relatï¿½rio");
         printf("\n\t6 - Fechar o programa");
 
         printf("\n\n\t\tEscolha uma das opcoes: ");
