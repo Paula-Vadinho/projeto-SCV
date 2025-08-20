@@ -105,7 +105,7 @@ void registrar_venda (struct produto item[], int n_produto, int *Codvenda, struc
 
             if ((correto != 's') && (correto != 'S') && (correto != 'n')&&(correto !='N'))
             {
-                printf("\n\tDIGITE SOMENTE S PARA SIM OU N PARA NÃO\n\n");
+                printf("\n\tDIGITE SOMENTE S PARA SIM OU N PARA Nï¿½O\n\n");
                 system ("pause");
             }
 
@@ -381,7 +381,7 @@ int main()
                 printf ("\n\n\tLIMITE DE VENDAS ATINGIDO");
             }
             break;
-
+//aaaaa
         case 3:
             listar_produtos_disp(item, n_produto);
             break;
