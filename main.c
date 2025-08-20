@@ -22,7 +22,7 @@ int leitura (int item)
 int main()
 {
     int i, opcao=0;
-//pin t
+
     do {
 
         printf("\n\n\t\tBEM VINDO!!");
